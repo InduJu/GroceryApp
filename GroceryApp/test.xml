@@ -1,0 +1,9 @@
+<suite name="MyTestSuite">
+	<test name="ChromeTest">
+		<parameter name="browser" value="chrome"></parameter>
+		<classes>
+			<class name="testCases.AdminUsersTestCase"></class>
+		</classes>
+	</test>
+	
+</suite>

@@ -1,0 +1,31 @@
+<suite name="MyTestSuite" parallel="tests" thread-count="3">
+
+	<test name="ChromeTest">
+		<parameter name="browser" value="chrome"></parameter>
+		<groups>
+			<run>
+				<exclude name="High"></exclude>
+				<exclude name="medium"></exclude> <!--Grouping are of 2 types: include & exclude, either 1 will use!-->
+			</run>
+		</groups>
+		<classes>
+			<class name="testCases.LoginPageTestCase"></class>
+		</classes>
+	</test>
+
+
+	<test name="EdgeTest">
+		<parameter name="browser" value="edge"></parameter>
+		<classes>
+			<class name="testCases.LoginPageTestCase"></class>
+		</classes>
+	</test>
+
+
+	<test name="FirefoxTest">
+		<parameter name="browser" value="firefox"></parameter>
+		<classes>
+			<class name="testCases.LoginPageTestCase"></class>
+		</classes>
+	</test>
+</suite>

@@ -1,0 +1,13 @@
+<suite name="MyTestSuite">
+	<test name="MyTest">
+		<groups>
+			<run>
+				<exclude name="High"></exclude>
+				<exclude name="medium"></exclude>   <!--Grouping are of 2 types: include & exclude, either 1 will use!-->
+			</run>
+		</groups>
+		<classes>
+			<class name="testNG.Grouping"></class>			
+		</classes>
+	</test>
+</suite>
