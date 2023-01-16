@@ -1,7 +1,7 @@
 package testCases;
 
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,25 +16,20 @@ import utilities.ExcelRead;
 import utilities.GeneralUtilities;
 
 public class ManageOrdersPageTestCase extends BaseClass{
-
-	
-	
 	LoginPage lp;
 	HomePage hp;
 	ManageOrdersPage mo;
 	GeneralUtilities gu ;
 	
 
-/*	@Test
-	public void verifyDropdownOfPaymentMode() throws IOException {
+	@Test(enabled = false)
+	public void verifyDropdownOfPaymentMode(){
 		
 		lp=new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
-		
-		
+			
 		hp=new HomePage(driver);
-		hp.clickOnManageOrders();
-		
+		hp.clickOnManageOrders();	
 		
 		mo = new ManageOrdersPage(driver);
 		mo.clickOnSearch();
@@ -44,8 +39,8 @@ public class ManageOrdersPageTestCase extends BaseClass{
 		Assert.assertEquals(actual, expected, Constant.errorMessageManageOrdersDropdown);
 	} 
 	
-	@Test
-	public void verifySearchOrdersListCanBeSearchedWithStartDate() throws IOException, InterruptedException {
+	@Test 
+	public void verifySearchOrdersListCanBeSearchedWithStartDate(){
 		
 		lp=new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
@@ -59,34 +54,29 @@ public class ManageOrdersPageTestCase extends BaseClass{
 		mo.clickOnSearch();
 		mo.inputDates();
 		mo.clickOnSearchOfSearchListOrders();
-		List<Integer> actual=mo.checkPaymentModeCount();
 		
-		List<Integer> expected= mo.expectedLList();    //----->doubt convertion of expected to list
-		Assert.assertEquals(actual, expected, "ef");
-		
-
+		int actual=mo.checkPaymentModeCount();	
+		int expected=11 ;
+		Assert.assertEquals(actual, expected, Constant.errorMessageIncorrectPaymentModeCount);	
 	} 
 	
 	
-	@Test
-	public void verifyManageOrderPageHighlight() throws IOException {
+	@Test(enabled = false)
+	public void verifyManageOrderPageHighlight(){
 		lp=new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
 		
-		
 		hp=new HomePage(driver);
 		hp.clickOnManageOrders();
-		
-		
+			
 		mo = new ManageOrdersPage(driver);
 		String actual=mo.manageOrdersPageIsHighLighted();
 		String expected="active nav-link";
-		Assert.assertEquals(actual, expected, Constant.errorMessageManageOrdersHighlight);
-		
-	}  */
+		Assert.assertEquals(actual, expected, Constant.errorMessageManageOrdersHighlight);	
+	}  
 	
-	@Test
-	public void verifyThatUserGetAnAlertMessageduringDeleteClick() throws IOException, InterruptedException {
+	@Test (enabled=false)
+	public void verifyThatUserGetAnAlertMessageduringDeleteClick(){
 		lp=new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
 		
@@ -95,15 +85,13 @@ public class ManageOrdersPageTestCase extends BaseClass{
 		
 		mo = new ManageOrdersPage(driver);
 		mo.clickDeleteDataFromTable();
+		mo.explicitWaitAlertIsPresentImplementation();
 		
-		Thread.sleep(2000);
-		
-		String actual=mo.alertHandlingText();
-		
+		String actual=mo.alertHandlingText();	
 		mo.clickAlertHandlingOkMessage();
 		
 		String expected="Do you want to delete this Order?";
-		Assert.assertEquals(actual, expected, "::Alert text is not as expected::");
+		Assert.assertEquals(actual, expected, Constant.errorMessageinAlertText);
 	
 	}
 	

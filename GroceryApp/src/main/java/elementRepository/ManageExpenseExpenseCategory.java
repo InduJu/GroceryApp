@@ -1,5 +1,8 @@
 package elementRepository;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,12 +10,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import utilities.GeneralUtilities;
+import utilities.RandomDataGeneration;
+import utilities.WaitUtility;
 
 public class ManageExpenseExpenseCategory {
 
 	WebDriver driver;
 
 	GeneralUtilities gu = new GeneralUtilities();
+	WaitUtility wu=new WaitUtility();
+	RandomDataGeneration rdg=new RandomDataGeneration();
 
 	public ManageExpenseExpenseCategory(WebDriver driver) {
 
@@ -29,7 +36,7 @@ public class ManageExpenseExpenseCategory {
 	@FindBy(xpath="//button[@name='Create']")
 	WebElement saveButton;
 	
-	@FindBy(xpath="//div[@class='row-sm-12']//div[1]/h5")
+	@FindBy(xpath="//div[@class='alert alert-success alert-dismissible']//h5")
 	WebElement alertMsg;
 	
 	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody//tr[1]//td//a[1]")
@@ -53,8 +60,8 @@ public class ManageExpenseExpenseCategory {
 	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody/tr/td[1]")
 	WebElement searchedElementText;
 	
-	@FindBy(xpath="//*")
-	WebElement count;
+	@FindBy(xpath="//ul[@class='pagination pagination-sm m-0 float-right']//li//a")
+	List<WebElement> listPage;
 	
 	@FindBy(xpath="//li[@class='page-item']//a[6]")
 	WebElement countElement;
@@ -65,7 +72,7 @@ public class ManageExpenseExpenseCategory {
 	}
 	
 	public void addNewTitle() {
-		titleText.sendKeys("Almond");
+		titleText.sendKeys("Almond"+ rdg.random());
 	}
 	
 	public void clickOnSave() {
@@ -73,8 +80,7 @@ public class ManageExpenseExpenseCategory {
 	}
 
 	public String getAlertMsg() {
-		return gu.getElementText(alertMsg);
-		
+		return gu.getElementText(alertMsg);	
 	}
 	
 	public void clickEditButton() {
@@ -103,14 +109,30 @@ public class ManageExpenseExpenseCategory {
 	
 	public String getSearchedElementText() {
 		
-		return gu.getElementText(searchedElementText);
+		return gu.getElementText(searchedElementText);	
+	}
+	
+	public void fluentWaitImplementation() {
+		wu.fluentWait(driver, alertMsg,"class", "alert alert-success alert-dismissible");
 		
 	}
 	
-//	public void getCountOfWebElements() {
-//		count.si
+	public int getCountOfWebElements() throws InterruptedException {
 		
-//	}
+		int number=listPage.size();
+		int i=number-2;
+		
+		WebElement element=driver.findElement(By.xpath("//ul[@class='pagination pagination-sm m-0 float-right']//li["+ i +"]//a"));
+		gu.clickJavaScriptExecutor(element, driver);
+		Thread.sleep(2000);
+		List<WebElement> listTable=driver.findElements(By.xpath("//div[@class='card-body table-responsive p-0']//table//tbody//tr//td[1]"));
+		int lastTableColumnCount=listTable.size();
+		System.out.println(lastTableColumnCount);
+		
+		int totalCount=(i-1)*20+lastTableColumnCount;
+		System.out.println(totalCount);
+		return totalCount;
+	}
 	
 	
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import constant.Constant;
 import elementRepository.HomePage;
 import elementRepository.LoginPage;
 import elementRepository.ManageUsersPage;
@@ -17,8 +18,8 @@ public class ManageUsersTestCase extends BaseClass{
 	ManageUsersPage mu;
 	
 	
-/*	@Test
-	public void verifyActiveUserList() throws IOException  {
+	@Test
+	public void verifyActiveUserList() {
 
 		lp=new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
@@ -28,13 +29,14 @@ public class ManageUsersTestCase extends BaseClass{
 		
 		mu=new ManageUsersPage(driver);
 		
-		int actual= mu.totalCountOfUsers();   //value----
-		String expected="Active";        //text --How to assert? -------------------->>		
-  		Assert.assertEquals(actual, expected, "dcscd");	
+		int actual= mu.totalCountOfUsers();   
+		int expected=7;       		
+  		System.out.println(actual +","+ expected);
+		Assert.assertEquals(actual, expected, "dcscd");	
   }  
 	
 	@Test
-	public void verifyActiveUserStatusCanBeChangedToInactive() throws IOException, InterruptedException  {
+	public void verifyActiveUserStatusCanBeChangedToInactive() {
 		
 		lp=new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
@@ -46,13 +48,13 @@ public class ManageUsersTestCase extends BaseClass{
 		mu.clickLockActionFromTable();
 		
 		String actual=mu.getTextOfStatus();
-		String expected="Inactive";
-		Assert.assertEquals(actual, expected, "::Active status is not as expected::");
-	}   */
+		String expected="Active";
+		Assert.assertEquals(actual, expected, Constant.errorMessageInStatusVerification);
+	}   
 	
 	
 	@Test
-	public void verifyPasswordOfUser() throws IOException, InterruptedException  {
+	public void verifyPasswordOfUser(){
 		lp=new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
 		
@@ -64,11 +66,7 @@ public class ManageUsersTestCase extends BaseClass{
 		
 		String actual=mu.fetchPasswordFromDynamicTable();
 		String expected="Password : resmi";
-		Assert.assertEquals(actual, expected, "Password is not as expected");
+		Assert.assertEquals(actual, expected, Constant.errorMessageInPasswordVerification);
 		
 	}	
-		
-
-	
-	
 }

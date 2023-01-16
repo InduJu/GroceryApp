@@ -4,8 +4,8 @@
 		<parameter name="browser" value="chrome"></parameter>
 		<groups>
 			<run>
-				<exclude name="High"></exclude>
-				<exclude name="medium"></exclude> <!--Grouping are of 2 types: include & exclude, either 1 will use!-->
+				<include name="High"></include>
+				<include name="medium"></include> 
 			</run>
 		</groups>
 		<classes>

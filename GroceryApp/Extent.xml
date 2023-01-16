@@ -1,4 +1,4 @@
-<suite name="MyTestSuite" parallel="tests" thread-count="3">
+<suite name="ExtendReport" parallel="tests" thread-count="3">
 	<test name="ChromeTest">
 
 		<listeners>
@@ -8,7 +8,18 @@
 		<parameter name="browser" value="chrome"></parameter>
 
 		<classes>
+			<class name="testCases.AdminUsersTestCase"></class>
+			<class name="testCases.DashboardPageTestCase"></class>
 			<class name="testCases.LoginPageTestCase"></class>
+			<class name="testCases.ManageContent_PagesTestCase"></class>
+			<class name="testCases.ManageExpense_ManageExpenseTestCase"></class>
+			<class name="testCases.ManageExpenseExpenseCategoryTestCase"></class>
+			<class name="testCases.ManageOrdersPageTestCase"></class>
+			<class name="testCases.ManageProductTestCases"></class>
+			<class name="testCases.ManageSliderPageTestCase"></class>
+			<class name="testCases.ManageUsersTestCase"></class>
+			<class name="testCases.PushNotificationTestCase"></class>
+
 		</classes>
 	</test>
 </suite>

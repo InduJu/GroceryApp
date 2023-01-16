@@ -20,23 +20,23 @@ public class WaitUtility {
 		Thread.sleep(2000);
 	}
 
-//ImplicitWait
+	public void implicitWait(WebDriver driver) {
 	
-//	driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+	}
 
-//fluentWait
+
+	public void fluentWait(WebDriver driver, WebElement element, String attribute, String attributeValue) {
+		 Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+		            .withTimeout(Duration.ofSeconds(30))
+		            .pollingEvery(Duration.ofSeconds(5))
+		            .ignoring(NoSuchElementException.class);		 
+		 fluentWait.until(ExpectedConditions.attributeContains(element, attribute, attributeValue));
+				 
+				 
+			
+		
+	}
 	
-/*
- * Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
- * .withTimeout(Duration.ofSeconds(30)) //maximum time duration-->max time out
- * .pollingEvery(Duration.ofSeconds(5)) //intermediate interval(every 5Sec til
- * total 30s) to chk the elts load --> polling interval
- * .ignoring(NoSuchElementException.class);
- * 
- * 
- * WebElement foo = fluentWait.until(new Function<WebDriver, WebElement>() {
- * public WebElement apply(WebDriver driver) { return
- * driver.findElement(By.id("foo")); } }); }
- */
-
 }
+

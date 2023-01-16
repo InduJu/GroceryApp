@@ -1,11 +1,14 @@
 package elementRepository;
 
+import java.util.Random;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import utilities.GeneralUtilities;
+import utilities.RandomDataGeneration;
 import utilities.WaitUtility;
 
 public class AdminUsers {
@@ -14,6 +17,7 @@ public class AdminUsers {
 
 	GeneralUtilities gu = new GeneralUtilities();
 	WaitUtility wu=new WaitUtility();
+	RandomDataGeneration rdg=new RandomDataGeneration();
 
 	public AdminUsers(WebDriver driver) {
 
@@ -52,20 +56,27 @@ public class AdminUsers {
 	@FindBy(xpath="//button[text()='Sign In']")
 	WebElement signIn;
 	
-	@FindBy(xpath="//li[@class='nav-item dropdown']//a")
-	WebElement profileText;
+	@FindBy(xpath="//h5[normalize-space()='Alert!']")
+	WebElement alertText;
+	
+	@FindBy(linkText="Home")
+	WebElement home;
+	
+	@FindBy(xpath="//a[@class='active nav-link']")
+	WebElement dashboardHighlight;
+	
 	
 	public void clicknewButton() {
 		newButton.click();
 	}
 	
-	public void enterUsername() {
-		userName.sendKeys("indu");
+	public void enterUsername() {	
+		userName.sendKeys("indu" + rdg.random());	
 	}
 	
 	public void enterPassword() {
-		
-		passWord.sendKeys("indu123");
+		  
+		passWord.sendKeys("indu123" +  rdg.random());
 	}
 	
 	public void selectUserTypeFromDropdown() {
@@ -76,29 +87,16 @@ public class AdminUsers {
 		saveButton.click();
 	}
 	
-	public void clickProfile() {
-		adminDropdown.click();
-	}
-	public void clickProfileLogout() {
-		logout.click();	
+	public String getTextOfAlert() {
+		return gu.getElementText(alertText);
 	}
 	
-	
-	
-	public void enterNewUser() {
-	    newUsername.sendKeys("indu");
+	public void clickHome() {
+		home.click();
 	}
 	
-	public void enterNewPassword() {
-		newPassword.sendKeys("indu123");
-	}
-	
-	public void clickSignIn() {
-		signIn.click();
-	}
-	
-	public String getTextOfNewProfile() {
-		return gu.getElementText(profileText);
+	public String getDashboardHighlight() {
+		return gu.getAttributeValue(dashboardHighlight, "class");
 	}
 
 }

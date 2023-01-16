@@ -28,7 +28,6 @@ public class ManageSliderPage {
 	@FindBy(xpath="//a[@class='btn btn-rounded btn-danger']")
 	WebElement newButton;
 	
-
 	@FindBy(xpath="//input[@id='main_img']")
 	WebElement chooseFile;
 	
@@ -39,16 +38,25 @@ public class ManageSliderPage {
 	WebElement save;
 	
 	@FindBy(xpath="//table/tbody/tr/td[1]//img")
-	List<WebElement> firstColumn;
+	List<WebElement> firstColumnList;
 	
+	@FindBy(xpath="//table/tbody/tr[1]/td[1]/img")
+	WebElement firstelt;
 	
+	@FindBy(xpath="//input[@id='main_img']")
+	WebElement chooseFileButton;
 	
 	public void clickOnNewButton() {
 		newButton.click();
 	}
+	public void clickOnChoosefileButton() {
+		chooseFileButton.click();
+	}
 	
-	public void clickFileToUpload() throws AWTException {
-		gu.chooseFileToUpload(driver, chooseFile, (System.getProperty("user.dir")+"\\src\\main\\resources\\UploadFile\\image.png"));
+	public void sendKeysFileUpload(){
+		
+		gu.fileUploadUsingSendKeys(chooseFileButton, System.getProperty("user.dir")+"\\src\\main\\resources\\UploadFile\\image.png");
+		
 	}
 	
 	public void sendTextToLinkField() {
@@ -59,10 +67,15 @@ public class ManageSliderPage {
 		save.click();
 	}
 	
-	public void imageVerification() {
-		List<WebElement> list1=firstColumn;
-	//	List<WebElement> upload= "C:\\Users\\INDU M\\eclipse-workspace\\GroceryApp\\src\\main\\resources\\UploadFile\\image.png";
-	//	if(list1 = "img")
+	public boolean imageVerification() {         
+	
+		boolean s1=false;
+		
+		String s=gu.getAttributeValue(firstelt, "src");	
+		if( s!=null)
+			 s1=true;
+		
+		return s1;
 	}
 
 }

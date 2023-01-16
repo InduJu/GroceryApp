@@ -34,6 +34,9 @@ public class GeneralUtilities {
 		return driver.getPageSource();
 	}
 
+	public String getAttributeValue(WebElement element, String attribute) {
+		return element.getAttribute(attribute);
+	}
 	
 	public String getElementText(WebElement element) {
 		String text = element.getText();
@@ -49,9 +52,8 @@ public class GeneralUtilities {
 	}
 
 	public boolean selectValueFromCheckboxOrRadioButton(WebElement element) {
-		element.click(); // comment for loginPage RememberMe
+		element.click(); 
 		boolean a = element.isSelected();
-		System.out.println(a);
 		return a;
 	}
 
@@ -83,46 +85,45 @@ public class GeneralUtilities {
 
 	public int selectValueFromDynamicTable(List<WebElement> listOfColumn, String value) {
 	
-		//	String elementLocator = gu.selectValueFromDynamicTable(list1, "386", "//table[@class='table table-bordered table-hover table-sm']//tbody//tr[\"+ (i+1) +\"]//td[7]//child::a[2]");
+		
 		int j=0;
-//		String elementLocator = null;
 		for (int i = 0; i < listOfColumn.size(); i++) {
 			if (listOfColumn.get(i).getText().equals(value)) {
-				//table[@class='table table-bordered table-hover table-sm']//tbody//tr[\"+ (i+1) +\"]//td[7]//child::a[2]
+				
 				j=i;
-				//elementLocator = locator;
 				break;
 			}
 		}
 		return j;
-//		return elementLocator;
+
 	}
 	
 	
-	public void chooseFileToUpload(WebDriver driver,WebElement fileElement,String filePath) throws AWTException {
-//		WebElement fileElement=  driver.findElement(By.id("uploadfile_0"));
-		Actions obj=new Actions(driver);
-	    obj.moveToElement(fileElement).click().perform(); 
-	    StringSelection ss = new StringSelection(filePath); //StrignSelection is a class for accessing system OS
-	     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+	public void chooseFileToUpload(WebDriver driver, String filePath) throws AWTException {
+		
+	//	 Actions obj=new Actions(driver);
+	//	 obj.moveToElement(element).click().perform(); 
+
+	    StringSelection ss = new StringSelection(filePath); 
+	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
 	     
 	     Robot robot=new Robot();
 	     robot.delay(200);
 
-	     robot.keyPress(KeyEvent.VK_CONTROL);  //Cntrl+v  --> Press   [File name from the s/m screen]
+	     robot.keyPress(KeyEvent.VK_CONTROL);  
 	     robot.keyPress(KeyEvent.VK_V);
 	     robot.delay(200);
 	     
-	     robot.keyRelease(KeyEvent.VK_CONTROL); // cntrl+v --> Release/paste
+	     robot.keyRelease(KeyEvent.VK_CONTROL); 
 	     robot.keyRelease(KeyEvent.VK_V);
 	     robot.delay(200);
 	     
-	     robot.keyPress(KeyEvent.VK_ENTER); // Enter --> press
+	     robot.keyPress(KeyEvent.VK_ENTER); 
 	     robot.keyRelease(KeyEvent.VK_ENTER);
 	     
 	}
 
-	
-	
-
+	public void fileUploadUsingSendKeys(WebElement element, String path) {
+		element.sendKeys(path);
+	} 
 }

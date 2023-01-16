@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import utilities.ExplicitWait;
 import utilities.GeneralUtilities;
 import utilities.WaitUtility;
 
@@ -19,7 +20,8 @@ public class ManageOrdersPage {
 	WebDriver driver;
 
 	GeneralUtilities gu = new GeneralUtilities();
-	WaitUtility wu = new WaitUtility();
+	WaitUtility wu=new WaitUtility();
+	ExplicitWait ew = new ExplicitWait();
 
 	public ManageOrdersPage(WebDriver driver) {
 
@@ -57,22 +59,20 @@ public class ManageOrdersPage {
 		return gu.selectValueFromDropdown(paymentMode, "COD");
 	}
 
-	public void inputDates() throws InterruptedException {
-		startDate.sendKeys("19-04-2021");
-		Thread.sleep(2000);
-		endDate.sendKeys("19-04-2021");
+	public void inputDates() {
+		startDate.sendKeys("12-01-2021");
+		ew.attributeToBeNotEmpty(driver, 10, endDate, "id");
+		endDate.sendKeys("19-12-2022");
 	}
 
 	public void clickOnSearchOfSearchListOrders() {
 		searchOfSearchListOrders.click();
 	}
 
-	public List<Integer> checkPaymentModeCount() {
+	public int checkPaymentModeCount() {
 
-		List<WebElement> PaymentColumn = driver.findElements(By.xpath("//table[@class='table table-bordered table-hover table-sm']//tbody//tr//td[5]"));
-		List<Integer> count=new ArrayList<Integer>();
-		int bankCount=0;
-		int CODCount=0;
+		List<WebElement> PaymentColumn = driver.findElements(By.xpath("//table[@class='table table-bordered table-hover table-sm']//tbody//tr//td[5]"));	
+		int bankCount=0, CODCount=0;	
 		for (int i = 0; i < PaymentColumn.size(); i++) {
 			
 			if (PaymentColumn.get(i).getText().equals("Bank")) {
@@ -84,33 +84,28 @@ public class ManageOrdersPage {
 				CODCount++;
 			}
 		}
-		
-		count.add(bankCount);
-		count.add(CODCount);
-		return count;		
+		return bankCount;
+		 	
 	}
 
-	public List expectedLList()
-	{
-		List<Integer> expected= new ArrayList();
-		expected.add(4);
-		expected.add(1);
-		return expected;
-	}
-	
 	public String manageOrdersPageIsHighLighted() {
 		String text = highLightManageOrders.getAttribute("class");
 		return text;
 	}
 
-	public void clickDeleteDataFromTable() throws InterruptedException {
+	public void clickDeleteDataFromTable() {
 
 		List<WebElement> list1 = firstColumn;
 		WebElement delete;
 		gu.selectValueFromScroll(0, 500, driver);  //scroll
-		wu.minimumDelay();                         //delay
+		try {
+			wu.minimumDelay();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}                         //delay
 		
-		int row=gu.selectValueFromDynamicTable(firstColumn, "386");
+		int row=gu.selectValueFromDynamicTable(firstColumn, "335");
 	
 		String locator="//table[@class='table table-bordered table-hover table-sm']//tbody//tr["+ (row+1)+ "]//td[7]//a[2]";
 		delete = driver.findElement(By.xpath(locator));	
@@ -118,6 +113,9 @@ public class ManageOrdersPage {
 		gu.clickJavaScriptExecutor(delete, driver);
 	}
 
+	public void explicitWaitAlertIsPresentImplementation() {
+		ew.alertIsPresent(driver, 5);
+	}
 	public String alertHandlingText() {
 
 		return gu.clickOnAlertHandlingText(driver);

@@ -35,13 +35,13 @@ public class LoginPage {
 	@FindBy(xpath="//li[@class='nav-item dropdown']//a[@data-toggle='dropdown']")
 	WebElement profileName;
 	
-	@FindBy(xpath="(//div[@class='alert alert-danger alert-dismissible']/text())[3]")
+	@FindBy(xpath="//div[@class='alert alert-danger alert-dismissible']/h5")
 	WebElement invalidAlert;
 	
 	@FindBy(xpath="//div[@class='icheck-dark']//label")
 	WebElement rememberMeChkBox;
 	
-	@FindBy(xpath="//input[@id='remember']")
+	@FindBy(xpath="//input[@name='remember_me']")
 	WebElement chkBoxIsSelected;
 
 	public String getTitleOfCurrentPage() {
@@ -54,8 +54,6 @@ public class LoginPage {
 		return gu.getURL(driver);
 	}
 	
-	
-	
 	public void inputUsername(String userName) {
 
 		gu.getCredentials(username, userName);	
@@ -65,6 +63,14 @@ public class LoginPage {
 
 		gu.getCredentials(password, pswrd);
 	}  
+	
+	public void usernameInputDataProvider(String username2) {
+		username.sendKeys(username2);
+	}
+	
+	public void passwordInputDataProvider(String password2) {
+		password.sendKeys(password2);
+	}
 	
 	public void clickOnSignIn() {
 		signIn.click();
@@ -79,8 +85,7 @@ public class LoginPage {
 	
 	
 	public String getTextSignInButton() {
-		return gu.getElementText(signIn);
-		 
+		return gu.getElementText(signIn);	 
 	}
 		
 	public String profileNameText() {
@@ -94,8 +99,9 @@ public class LoginPage {
 	}   
 	
 	public boolean checkBoxValueReturn() {
-		rememberMeChkBox.click();
-		return gu.selectValueFromCheckboxOrRadioButton(chkBoxIsSelected);
+	//	rememberMeChkBox.click();
+		boolean a = chkBoxIsSelected.isSelected();
+		return a;	
 	}
 	
 }

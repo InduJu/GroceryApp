@@ -35,12 +35,6 @@ public class ManageUsersPage {
 	@FindBy(xpath="//table/tbody/tr[8]/td/div/div/span")
 	WebElement password;
 	
-	
-	
-	
-	
-	
-	
 	public int totalCountOfUsers() {
 
 		List<WebElement> list1 = totalCountFirstColumn;
@@ -55,12 +49,17 @@ public class ManageUsersPage {
 	}
 	
 	
-	public void clickLockActionFromTable() throws InterruptedException {
+	public void clickLockActionFromTable(){
 
 		List<WebElement> list1 = firstColumn;
 		WebElement lock;
 		gu.selectValueFromScroll(0, 150, driver);  //scroll
-		wu.minimumDelay();                         //delay
+		try {
+			wu.minimumDelay();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}                         //delay
 		
 		int row=gu.selectValueFromDynamicTable(firstColumn, "Abhiramkrishnakumarsreenatest d");
 		String locator="//table[@class='table table-bordered table-hover table-sm']//tbody//tr["+ (row+1)+ "]//td[6]/a[1]";
@@ -76,11 +75,16 @@ public class ManageUsersPage {
 	}
 	
 	
-	public void clickPasswordArrowDown() throws InterruptedException {
+	public void clickPasswordArrowDown() {
 		List<WebElement> list1 = firstColumn;
 		WebElement passwrdArrow;
 		gu.selectValueFromScroll(0, 150, driver);  //scroll
-		wu.minimumDelay();                         //delay
+		try {
+			wu.minimumDelay();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}                         //delay
 		
 		int row=gu.selectValueFromDynamicTable(firstColumn, "Abhiramkrishnakumarsreenatest d");
 		String locator="//table[@class='table table-bordered table-hover table-sm']//tbody//tr["+ (row+1)+ "]//td[3]/div/a";
@@ -89,10 +93,15 @@ public class ManageUsersPage {
 		gu.clickJavaScriptExecutor(passwrdArrow, driver);
 	}
 	
-	public String fetchPasswordFromDynamicTable() throws InterruptedException {
+	public String fetchPasswordFromDynamicTable() {
 		WebElement password;
 		gu.selectValueFromScroll(0, 150, driver);  //scroll
-		wu.minimumDelay();                         //delay	
+		try {
+			wu.minimumDelay();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}                         //delay	
 		int row=gu.selectValueFromDynamicTable(firstColumn, "Abhiramkrishnakumarsreenatest d");
 		String locator="//table[@class='table table-bordered table-hover table-sm']//tbody//tr["+ (row+2)+ "]/td/div";
 		password = driver.findElement(By.xpath(locator));

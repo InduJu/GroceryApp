@@ -15,12 +15,17 @@ public class HomePage {
 		PageFactory.initElements(driver, this);
 	}
 	
+	@FindBy(xpath="nav-icon fas fa-th-large")
+	WebElement dashboard;
 	
 	@FindBy (xpath="//li[2]/a/p/i")
 	WebElement manageExpense;
 
 	@FindBy(xpath="//ul[@class='nav nav-treeview']//child::p[1]")
 	WebElement expenseCategory;
+	
+	@FindBy(xpath="//ul[@class='nav nav-treeview'][2]//p[1]")
+	WebElement manageExpense_me;
 	
 	@FindBy(xpath="//ul[@class='nav nav-treeview']//child::p[2]")
 	WebElement subManageExpense;
@@ -40,8 +45,21 @@ public class HomePage {
 	@FindBy(xpath="//nav[@class='mt-2']//ul//li[10]//a//p")
 	WebElement manageSlider;
 	
+	@FindBy(xpath="//li[8]/a/p/i")
+	WebElement manageContent;
+	
+	@FindBy(xpath="(//li[@class='nav-item']//p)[10]")
+	WebElement manageContentPages;
+	
 	@FindBy(xpath="//i[@class='nav-icon fas fa-users']")
 	WebElement adminUsers;
+	
+	@FindBy(xpath="//p[normalize-space()='Push Notifications']")
+	WebElement pushNotification;
+	
+	public void clickOnDashboard() {
+		dashboard.click();
+	}
 	
 	public void clickOnManageExpense() {
 		manageExpense.click();
@@ -51,6 +69,9 @@ public class HomePage {
 		expenseCategory.click();
 	}
 	
+	public void clickOnManageExpense_me() {
+		manageExpense_me.click();
+	}
 	public void clickOnsubManageExpense() {
 		subManageExpense.click();
 	}
@@ -76,8 +97,20 @@ public class HomePage {
 		manageSlider.click();
 	}
 	
+	public void clickOnManageContent() {
+		manageContent.click();
+	}
+	
+	public void clickOnManageContentPage() {
+		manageContentPages.click();
+	}
+	
 	public void clickOnAdminUsers() {
 		adminUsers.click();
+	}
+	
+	public void clickOnPushNotification() {
+		pushNotification.click();
 	}
 	
 }

@@ -19,8 +19,8 @@ public class ManageExpenseExpenseCategoryTestCase extends BaseClass {
 	ManageExpenseExpenseCategory meec;
 	
 
-	@Test
-	public void verifyNewExpenseCategoryCanBeAdded() throws IOException {
+	@Test 
+	public void verifyNewExpenseCategoryCanBeAdded(){
 		lp = new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
 
@@ -32,14 +32,14 @@ public class ManageExpenseExpenseCategoryTestCase extends BaseClass {
 		meec.clickOnNew();
 		meec.addNewTitle();
 		meec.clickOnSave();
-
+		meec.fluentWaitImplementation();
 		String actual = meec.getAlertMsg();
 		String expected = "Alert!";
 		Assert.assertEquals(actual, expected, Constant.errorMessageNewCategoryText);
 	}
 
 	@Test 
-	public void verifyAddedCategoryCanBeModified() throws IOException {
+	public void verifyAddedCategoryCanBeModified() {
 		lp = new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
 
@@ -51,14 +51,14 @@ public class ManageExpenseExpenseCategoryTestCase extends BaseClass {
 		meec.clickEditButton();
 		meec.editCategoryInformation();
 		meec.clickUpdate();
-
+		meec.fluentWaitImplementation();
 		String actual = meec.getAlertMsg();
 		String expected = "Alert!";
 		Assert.assertEquals(actual, expected, Constant.errorMessageModifiedCategoryText);
 	}
 
 	@Test
-	public void verifyAnExpenseCategoryCanBeSearched() throws IOException {
+	public void verifyAnExpenseCategoryCanBeSearched() {
 		lp = new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
 
@@ -76,8 +76,8 @@ public class ManageExpenseExpenseCategoryTestCase extends BaseClass {
 		Assert.assertEquals(actual, expected, Constant.errorMessageSearchCategoryText);
 	} 
 	
-/*	@Test
-	public void verifyTotalCategoryCount() {
+	@Test
+	public void verifyTotalCategoryCount() throws InterruptedException {
 		lp = new LoginPage(driver);
 		lp.logInWithCredetials(ExcelRead.readStringData(0,0), ExcelRead.readStringData(0,0));
 
@@ -86,8 +86,9 @@ public class ManageExpenseExpenseCategoryTestCase extends BaseClass {
 		hp.clickOnExpenseCategory();
 
 		meec = new ManageExpenseExpenseCategory(driver);
-		String actual=meec.getCountOfWebElements();
-		String expected=""
-	}  */
+		int actual=meec.getCountOfWebElements();
+		String expected="127";
+		Assert.assertEquals(actual, expected, "fgf");
+	}  
 
 }

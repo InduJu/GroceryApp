@@ -23,6 +23,7 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>Extent.xml</suiteXmlFile>
 						<suiteXmlFile>CrossBrowser.xml</suiteXmlFile>	
+						<suiteXmlFile>Parallel.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>

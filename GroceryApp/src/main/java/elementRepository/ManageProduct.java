@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import utilities.ExplicitWait;
 import utilities.GeneralUtilities;
 import utilities.WaitUtility;
 
@@ -15,7 +16,9 @@ public class ManageProduct {
 	WebDriver driver;
 
 	GeneralUtilities gu = new GeneralUtilities();
+	ExplicitWait ew=new ExplicitWait();
 	WaitUtility wu=new WaitUtility();
+	
 
 	public ManageProduct(WebDriver driver) {
 
@@ -68,6 +71,9 @@ public class ManageProduct {
 	@FindBy(xpath="//select[@id='cat_id']")
 	WebElement selectCategory;
 	
+	@FindBy(xpath="//select[@id='sb']")
+	WebElement subCategory1;
+	
 	@FindBy(xpath="//select[@id='sub_id']")
 	WebElement subCategory;
 	
@@ -84,9 +90,11 @@ public class ManageProduct {
 	@FindBy(xpath="//input[@id='main_img']")
 	WebElement filePath;
 	
-	public String getProductList() {
-		
-		return gu.getElementText(productsList);	
+	public int getProductList() {
+		 String a=gu.getElementText(productsList);
+		 String b=  a.substring(1, a.length() - 1);
+		 int val=Integer.parseInt(b);
+		 return val;
 	}
 	
 	public void clickSearch() {
@@ -105,6 +113,11 @@ public class ManageProduct {
 	public String getValueFromSubCategory(String value) {
 		
 		return gu.selectValueFromDropdown(subCategory, value);	
+	}
+	
+	public String getValueFromSubCategoryForM(String value) {
+		
+		return gu.selectValueFromDropdown(subCategory1, value);	
 	}
 	
 	public String getTableCategoryValue() {
@@ -129,7 +142,7 @@ public class ManageProduct {
 	}
 	
 	public void enterWeightValue() {
-		weightValueText.sendKeys("12");
+		weightValueText.sendKeys("54");
 	}
 	
 	public String selectWeightUnit(String value) {
@@ -141,7 +154,7 @@ public class ManageProduct {
 	}
 	
 	public void enterPrice() {
-		priceText.sendKeys("150");
+		priceText.sendKeys("10");
 	}
 	
 	public void enterStockAvailability() {
@@ -156,17 +169,25 @@ public class ManageProduct {
 	}
 	
 	public void saveNewProductInformation() {
-		saveAddProductInfo.click();
+		gu.clickJavaScriptExecutor(saveAddProductInfo, driver);
 	}
 	
 	public String getAlertText() {
 		return gu.getElementText(alertMessage);
 	}
-	
-	public void smallWait() throws InterruptedException {
-		wu.minimumDelay();
+	public void clickSubCat() {
+		subCategory.click();
+	}
+	public void clickSubCat1() {
+		subCategory1.click();
+	}
+	public void explicitWaiteltToBeClikable() {
+		ew.elementToBeClickable(driver, 10, subCategory);
 	}
 	
+	public void explicitWaiteltToBeClikableForM() {
+		ew.elementToBeClickable(driver, 10, subCategory1);
+	}
 	public String getAlertHandlingText() {
 		
 		return gu.clickOnAlertHandlingText(driver);
@@ -186,8 +207,28 @@ public class ManageProduct {
 		gu.clickJavaScriptExecutor(saveAddProductInfo, driver);
 	}
 	
-	public void getFileUpload() throws AWTException {
-		gu.chooseFileToUpload(driver, filePath, (System.getProperty("user.dir")+ "\\src\\main\\resources\\UploadFile\\Document.docx"));
+	public void getFileUpload(){
+		
+		gu.clickJavaScriptExecutor(filePath, driver);
+		
+		try {
+			gu.chooseFileToUpload(driver,(System.getProperty("user.dir")+ "\\src\\main\\resources\\UploadFile\\image.png"));
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+		try {
+			wu.minimumDelay();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
+	public int expectedImplementation() {
+		int a=getProductList();
+		return a+1;
+	   
+	}
 }

@@ -1,12 +1,16 @@
 package utilities;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -21,6 +25,7 @@ public class ExtentReport implements ITestListener{
 	ExtentSparkReporter sparkReporter;
 	ExtentReports reports;
 	ExtentTest test;
+	WebDriver driver;
 
 	public void configureReport() {
 	Date date = new Date();
@@ -39,7 +44,7 @@ public class ExtentReport implements ITestListener{
 	reports.attachReporter(sparkReporter);
 
 	//System details
-	reports.setSystemInfo("PC Name", "ALViNs");
+	reports.setSystemInfo("PC Name", "Indu");
 	reports.setSystemInfo("OS", "Windows 10");
 	sparkReporter.config().setDocumentTitle("Extent Report Sample");
 	sparkReporter.config().setReportName("Report Summary");
@@ -67,7 +72,7 @@ public class ExtentReport implements ITestListener{
 
 	}
 
-
+	
 	public void onTestSkipped(ITestResult result) {
 	test = reports.createTest(result.getName());
 	test.log(Status.SKIP,
@@ -85,15 +90,14 @@ public class ExtentReport implements ITestListener{
 
 	}
 
-
+	
 	public void onStart(ITestContext context) {
 	configureReport();
 	}
-
-
+	
 	public void onFinish(ITestContext context) {
 	reports.flush();
 	}
-
-
 }
+	
+

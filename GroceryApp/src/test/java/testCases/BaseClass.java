@@ -29,64 +29,41 @@ public class BaseClass {
 	public static void testBasic() throws IOException {
 
 		pro = new Properties();
-		FileInputStream fp = new FileInputStream(
-				System.getProperty("user.dir") + "\\src\\main\\resources\\Properties\\config.properties");
+		FileInputStream fp = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\Properties\\config.properties");
 		pro.load(fp);
 	}
 
+
 	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod() throws IOException {
-		
+	@Parameters("browser")
+	public void beforeMethod(String s) throws IOException {
+
 		testBasic();
-		
-		System.setProperty(pro.getProperty("ChromeDriver"),
-				System.getProperty("user.dir") + "\\src\\main\\resources\\Driver\\chromedriver.exe");
-		driver = new ChromeDriver();
-		
+
+		if (s.equals("chrome")) {
+
+			System.setProperty(pro.getProperty("ChromeDriver"),System.getProperty("user.dir") + "\\src\\main\\resources\\Driver\\chromedriver.exe");
+			driver = new ChromeDriver();
+		} else if (s.equals("edge")) {
+			System.setProperty(pro.getProperty("EdgeDriver"),System.getProperty("user.dir") + "\\src\\main\\resources\\Driver\\msedgedriver.exe");
+			driver = new EdgeDriver();
+		} else if (s.equals("firefox")) {
+			System.setProperty(pro.getProperty("FirefoxDriver"),System.getProperty("user.dir") + "\\src\\main\\resources\\Driver\\geckodriver.exe");
+			driver = new FirefoxDriver();
+		}
+
 		driver.get(pro.getProperty("BaseURL"));
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
-	}
-
-	/*
-	 * @Parameters("browser") public void beforeMethod(String s) throws IOException
-	 * {
-	 * 
-	 * testBasic();
-	 * 
-	 * if (s.equals("chrome")) {
-	 * 
-	 * System.setProperty(pro.getProperty("ChromeDriver"),
-	 * System.getProperty("user.dir") +
-	 * "\\src\\main\\resources\\Driver\\chromedriver.exe"); driver = new
-	 * ChromeDriver(); } else if (s.equals("edge")) {
-	 * System.setProperty(pro.getProperty("EdgeDriver"),
-	 * System.getProperty("user.dir") +
-	 * "\\src\\main\\resources\\Driver\\msedgedriver.exe"); driver = new
-	 * EdgeDriver(); }
-	 * 
-	 * else if (s.equals("firefox")) {
-	 * System.setProperty(pro.getProperty("FirefoxDriver"),
-	 * System.getProperty("user.dir") +
-	 * "\\src\\main\\resources\\Driver\\geckodriver.exe"); driver = new
-	 * FirefoxDriver(); }
-	 * 
-	 * driver.get(pro.getProperty("BaseURL")); driver.manage().window().maximize();
-	 * driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000)); }
-	 */
+	}   
 
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult iTestResult) throws IOException {
-		// Listner listens the code. monitors events . If @test fails, screenshot will be captured 
-		// 25 types of listerners are there. ITest listner
 
 		if (iTestResult.getStatus() == ITestResult.FAILURE) {
 			sc = new ScreenshotCapture();
 			sc.captureFailureScreenShot(driver, iTestResult.getName());
 		}
-
-//		driver.close();
-//		driver.quit();
+		driver.close();
 	}
-
 }
